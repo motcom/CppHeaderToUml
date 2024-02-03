@@ -2,19 +2,19 @@
 #define RAWWORDTRANSRATOR_H
 #include <QMap>
 #include <QString>
-#include <QStringList>
 #include <QFileInfo>
+#include <Qlist>
 
 class RawWordTransrator
 {
 public:
     RawWordTransrator();
     void register_file(QFileInfo file_info);
-    QMap<QString,QStringList> get_fname_to_strlst();
-    QStringList get_file_names();
-    QStringList get_file_name_to_header_raws(QString file_name);
+    QMap<QString,QStringList> getFnameToRawStr();
+    QStringList getFileNames();
+    QStringList getFileNameToHeaderList(QString fileName);
 private:
-    QMap<QString,QStringList> fname_to_strlst;
+    QMap<QString,QStringList> fnameToRawStrLst;
 
 };
 

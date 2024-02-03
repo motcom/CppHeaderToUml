@@ -5,6 +5,7 @@
 #include <QRegExp>
 #include <stdexcept>
 
+
 RawWordTransrator::RawWordTransrator() {}
 
 // QMap<QString,QStringList> fname_to_strlst;
@@ -18,7 +19,7 @@ void RawWordTransrator::register_file(QFileInfo file_info)
     }
 
     QTextStream tx(&file);
-    QStringList str_lst;
+    QStringList strLst;
     QString line;
     QRegExp re_comment("//.*");
     QRegExp re_ifndefj("#ifndef.*");
@@ -28,6 +29,7 @@ void RawWordTransrator::register_file(QFileInfo file_info)
     QRegExp re_comment_rep("//.*$");
     QRegExp re_space_corone_space("\\s*:\\s*");
 
+    QStringList rawStrings;
     while(!tx.atEnd()) {
         line = tx.readLine();
         line = line.trimmed();
@@ -46,29 +48,28 @@ void RawWordTransrator::register_file(QFileInfo file_info)
         line = line.replace(re_space_corone_space,":");
 
         // Listにpush
-        str_lst.push_back(line);
+        rawStrings.push_back(line);
     }
     // データ構造構築
-    fname_to_strlst[file_info.fileName()]= str_lst;
+    fnameToRawStrLst[file_info.fileName()] = rawStrings;
 }
 
-QMap<QString, QStringList> RawWordTransrator::get_fname_to_strlst()
+QMap<QString, QStringList> RawWordTransrator::getFnameToRawStr()
 {
-    return fname_to_strlst;
+    return fnameToRawStrLst;
 }
 
-QStringList RawWordTransrator::get_file_names()
+QStringList RawWordTransrator::getFileNames()
 {
-    auto lst = fname_to_strlst.keys();
-    QStringList str_lst(lst.begin(),lst.end());
-    return str_lst;
+    QStringList lstStr = fnameToRawStrLst.keys();
+    return lstStr;
 }
 
-QStringList RawWordTransrator::get_file_name_to_header_raws(QString file_name)
+QStringList RawWordTransrator::getFileNameToHeaderList(QString fileName)
 {
     //　キーがない場合例がを出すよ
-    if (!fname_to_strlst.contains(file_name)) {
+    if (!fnameToRawStrLst.contains(fileName)) {
         throw std::runtime_error("RawWordTransrator::get_file_name_to_header_raws(QString file_name)でfname_to_strlstに含まれないキー（ファイル名）が使われました);");
     }
-    return fname_to_strlst[file_name];
+    return fnameToRawStrLst[fileName];
 }

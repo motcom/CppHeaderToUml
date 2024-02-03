@@ -12,7 +12,8 @@ SOURCES += \
         main.cpp \
         main_dest.cpp \
         rawwordtransrator.cpp \
-        umlclassextract.cpp
+        umlclassextract.cpp \
+        umlclassrelation.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -23,9 +24,10 @@ HEADERS += \
    argholder.h \
    filelistmanager.h \
    rawwordtransrator.h \
-   umlclassextract.h
+   umlclassextract.h \
+   umlclassrelation.h
 
-CONFIG(debug,debug|release) {
+CONFIG(release,debug|release) {
     DEFINES += TEST_MODE
 }else{
     DEFINES += APP_MODE
