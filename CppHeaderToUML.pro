@@ -10,7 +10,6 @@ SOURCES += \
         argholder.cpp \
         filelistmanager.cpp \
         main.cpp \
-        main_dest.cpp \
         rawwordtransrator.cpp \
         umlclassextract.cpp \
         umlclassrelation.cpp
@@ -26,9 +25,3 @@ HEADERS += \
    rawwordtransrator.h \
    umlclassextract.h \
    umlclassrelation.h
-
-CONFIG(release,debug|release) {
-    DEFINES += TEST_MODE
-}else{
-    DEFINES += APP_MODE
-}

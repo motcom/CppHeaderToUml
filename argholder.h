@@ -23,6 +23,8 @@ public:
     QString get_dir_path();
 
 private:
+    QString resultPath;
+
     int argc;
     char** argv;
 };

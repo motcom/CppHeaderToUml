@@ -1,31 +1,31 @@
 ﻿
-#ifdef APP_MODE
 #include "argholder.h"
 #include "filelistmanager.h"
-#include <iostream>
+#include <QDebug>
 #include <QString>
 #include <QFileInfo>
 #include <QList>
 #include "rawwordtransrator.h"
 #include "umlclassrelation.h"
 #include "umlclassextract.h"
+#include <iostream>
 
 
 int main(int argc, char *argv[])
 {
-    auto arg_holder = ArgHolder(argc,argv);
+    std::cout << "@startuml class" << std::endl; //Plant UML スタート
+
+    ArgHolder arg_holder = ArgHolder(argc,argv);
 
     if (!arg_holder.check()){
-        std::cerr << u8"CPPのヘッダが含まれるディレクトリパスを入力するとPlantUml形式で出力\n"
+        qDebug() <<u8"CPPのヘッダが含まれるディレクトリパスを入力するとPlantUml形式で出力\n"
                      "使い方: CppHeaderToUML dir_path";
     }
+
 
     auto flst_man = FileListManager(arg_holder.get_dir_path());
     QList<QFileInfo> file_lst = flst_man.get_file_list();
 
-    // for(QFileInfo &f_info:file_lst){
-        // std::cout << f_info.absoluteFilePath().toStdString().c_str() << std::endl;
-    // }
 
     RawWordTransrator rawWordTran;
     for(auto fileInfo:file_lst ) {
@@ -46,5 +46,7 @@ int main(int argc, char *argv[])
     {
         UmlClassExtract umlClsExt(fname_to_raw[fileName]);
     }
+
+
+    std::cout << "@enduml" << std::endl; //Plant UML end
 }
-#endif

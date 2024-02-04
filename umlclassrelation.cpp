@@ -1,5 +1,6 @@
 ﻿#include "umlclassrelation.h"
 #include <QDebug>
+#include <iostream>
 
 
 UmlClassRelation::UmlClassRelation()
@@ -80,11 +81,16 @@ void UmlClassRelation::createData()
     createClsSmallCase();
     headerRelation();
     // output;
-    for(auto &clsExtend :className_ExtendLst){
-        qDebug().noquote() << clsExtend;
+
+    for(auto &tmp_str :className_ExtendLst){
+        tmp_str = tmp_str.replace("<","&lt;");
+        tmp_str = tmp_str.replace("<","&gt;");
+        std::cout << tmp_str.toStdString() << std::endl;
     }
-    for(auto &headExtend:headerRelation_ExtendLst) {
-        qDebug().noquote() << headExtend;
+    for(auto &tmp_str:headerRelation_ExtendLst) {
+        tmp_str = tmp_str.replace("<","&lt;");
+        tmp_str = tmp_str.replace("<","&gt;");
+        std::cout << tmp_str.toStdString() << std::endl;
     }
 
 
